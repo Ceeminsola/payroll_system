@@ -1,17 +1,40 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Payroll from './pages/Payroll';
-import Redirect from './components/utils/Redirect';
+
+import PayrollCard from './components/PayrollCard';import Container from './components/Container';
+import { PayrollCardDetails } from './models/PayrollCardDetails';
+;
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path='/payroll-system' element={<Payroll />} />
-        <Route path='/' element={<Redirect to='/payroll-system' />}/>
-      </Routes>
-    </div>
+    <main className="px-2">
+      <Container className="!max-w-5xl mx-auto pt-10 ">
+        <PayrollCard
+          payrollType="Regular"
+          dueDate={new Date()}
+          paymentFrequency="Bi-Weekly #5"
+          data={payrollCardData}
+        />
+      </Container>
+    </main>
   );
 }
 
+
 export default App;
+
+const payrollCardData: Record<string, PayrollCardDetails> = {
+  "Payment Date/Period": {
+    body: new Date(),
+    fieldType: "date",
+    subContent: "01/17 - 01/30",
+  },
+  "Total Additional Earnings": {
+    body: 150,
+    fieldType: "currency",
+  },
+  "Total Additional Hours": {
+    body: 600,
+    fieldType: "plainNumber",
+    isBodyGreyed: true,
+  },
+};
